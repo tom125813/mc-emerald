@@ -3,6 +3,7 @@ package com.doontcare.me;
 import com.doontcare.me.commands.CommandGamemode;
 import com.doontcare.me.commands.admin.CommandGet;
 import com.doontcare.me.abilities.dash.CommandDash;
+import com.doontcare.me.customeffects.CustomEffectManager;
 import com.doontcare.me.holograms.HologramManager;
 import com.doontcare.me.listeners.leaderboard.LeaderboardManager;
 import com.doontcare.me.listeners.*;
@@ -100,6 +101,7 @@ public final class Emerald extends JavaPlugin {
     private static Plugin instance2;
 
     private PlayerManager playerManager;
+    private CustomEffectManager customEffectManager;
     private RankManager rankManager;
     private HologramManager hologramManager;
 
@@ -116,10 +118,12 @@ public final class Emerald extends JavaPlugin {
         instance2 = this;
 
         playerManager = new PlayerManager();
+        customEffectManager = new CustomEffectManager();
         rankManager = new RankManager();
         hologramManager = new HologramManager();
 
         playerManager.init();
+        customEffectManager.init();
         rankManager.init();
 
         PluginManager pm = getServer().getPluginManager();
@@ -132,6 +136,7 @@ public final class Emerald extends JavaPlugin {
         pm.registerEvents(new ListenerFoodBar(), this);
         pm.registerEvents(new LeaderboardManager(), this);
         pm.registerEvents(new ListenerSlotChange(), this);
+        pm.registerEvents(customEffectManager, this);
 
         getCommand("c").setExecutor(new CommandGamemode());
         getCommand("dash").setExecutor(new CommandDash(this));
@@ -145,6 +150,7 @@ public final class Emerald extends JavaPlugin {
 
     public HologramManager getHologramManager() {return hologramManager;}
     public PlayerManager getPlayerManager() {return playerManager;}
+    public CustomEffectManager getCustomEffectManager() {return customEffectManager;}
     public RankManager getRankManager() {return rankManager;}
     public static Emerald getInstance() {return instance;}
     public static Plugin getPlugin() {return instance2;}
