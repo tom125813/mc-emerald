@@ -24,16 +24,13 @@ public class ListenerPlayerDeath implements Listener {
         double damage = e.getDamage();
         double health = ((LivingEntity)e.getEntity()).getHealth();
 
-        DamageIndicator damageIndicator;
         Random r = new Random();
-        double negPos = Math.random();
-        double randomX = r.nextDouble(1);
-        if (negPos>=.5) {
-            damageIndicator = new DamageIndicator(e.getEntity().getLocation().add(randomX, 2 + r.nextDouble(0.7), 0), String.valueOf(damage));
-        } else {
-            randomX = 0-randomX;
-            damageIndicator = new DamageIndicator(e.getEntity().getLocation().add(randomX, 2 + r.nextDouble(0.7), 0), String.valueOf(damage));
-        }
+        DamageIndicator damageIndicator = new DamageIndicator(e.getEntity().getLocation().add(
+                (double)((r.nextInt(200)+1)-100)/100.0,
+                2 + r.nextDouble(0.7),
+                (double)((r.nextInt(200)+1)-100)/100.0),
+                String.valueOf(damage));
+
 
         if (e.getEntity().getType() != EntityType.PLAYER)
             return;
