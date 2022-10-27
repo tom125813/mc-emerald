@@ -3,12 +3,15 @@ package com.doontcare.me;
 import com.doontcare.me.commands.CommandGamemode;
 import com.doontcare.me.commands.admin.CommandGet;
 import com.doontcare.me.abilities.dash.CommandDash;
+import com.doontcare.me.holograms.Hologram;
+import com.doontcare.me.holograms.HologramManager;
 import com.doontcare.me.leaderboard.LeaderboardManager;
 import com.doontcare.me.listeners.*;
 import com.doontcare.me.abilities.dash.ListenerDash;
 import com.doontcare.me.listeners.ListenerFoodBar;
 import com.doontcare.me.player.PlayerManager;
 import com.doontcare.me.ranks.RankManager;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -95,9 +98,11 @@ public final class Emerald extends JavaPlugin {
      */
 
     private static Emerald instance;
+    private static Plugin instance2;
 
     private PlayerManager playerManager;
     private RankManager rankManager;
+    private HologramManager hologramManager;
 
     private transient ListenerBlock blockListener;
     private transient ListenerEXP expListener;
@@ -109,9 +114,11 @@ public final class Emerald extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+        instance2 = this;
 
         playerManager = new PlayerManager();
         rankManager = new RankManager();
+        hologramManager = new HologramManager();
 
         playerManager.init();
         rankManager.init();
@@ -137,8 +144,10 @@ public final class Emerald extends JavaPlugin {
         // Save data into json & config
     }
 
+    public HologramManager getHologramManager() {return hologramManager;}
     public PlayerManager getPlayerManager() {return playerManager;}
     public RankManager getRankManager() {return rankManager;}
     public static Emerald getInstance() {return instance;}
+    public static Plugin getPlugin() {return instance2;}
 
 }

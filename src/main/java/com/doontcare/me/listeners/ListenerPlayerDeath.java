@@ -2,8 +2,10 @@ package com.doontcare.me.listeners;
 
 
 import com.doontcare.me.events.PlayerDiedEvent;
+import com.doontcare.me.holograms.damageindicators.DamageIndicator;
 import com.doontcare.me.utils.UtilsChat;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.EntityType;
@@ -13,10 +15,26 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 
+import java.util.Random;
+
 public class ListenerPlayerDeath implements Listener {
 
     @EventHandler
     public void deathEvent(EntityDamageEvent e) {
+        double damage = e.getDamage();
+        double health = ((LivingEntity)e.getEntity()).getHealth();
+
+        DamageIndicator damageIndicator;
+        Random r = new Random();
+        double negPos = Math.random();
+        double randomX = r.nextDouble(1);
+        if (negPos>=.5) {
+            damageIndicator = new DamageIndicator(e.getEntity().getLocation().add(randomX, 2 + r.nextDouble(0.7), 0), String.valueOf(damage));
+        } else {
+            randomX = 0-randomX;
+            damageIndicator = new DamageIndicator(e.getEntity().getLocation().add(randomX, 2 + r.nextDouble(0.7), 0), String.valueOf(damage));
+        }
+
         if (e.getEntity().getType() != EntityType.PLAYER)
             return;
 
@@ -25,8 +43,6 @@ public class ListenerPlayerDeath implements Listener {
             return;
         }
 
-        double damage = e.getDamage();
-        double health = ((LivingEntity)e.getEntity()).getHealth();
         if (health-damage <= 0) {
             e.setCancelled(true);
 
