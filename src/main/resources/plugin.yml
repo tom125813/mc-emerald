@@ -1,0 +1,11 @@
+name: Emerald
+version: '${project.version}'
+main: com.doontcare.me.Emerald
+api-version: 1.19
+commands:
+  c:
+    description: Change gamemode quick
+  dash:
+    description: Dash
+  get:
+    description: Admin command to get custom items
