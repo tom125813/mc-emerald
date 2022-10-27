@@ -1,13 +1,9 @@
 package com.doontcare.me.holograms;
 
 import com.doontcare.me.Emerald;
-import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Entity;
 
 public class Hologram {
 
@@ -26,15 +22,19 @@ public class Hologram {
         this.name = ChatColor.translateAlternateColorCodes('&', name);
         this.location = location;
 
-        armorStand = location.getWorld().spawn(location, ArmorStand.class);
+        // prevent flash of armourstand
+        armorStand = location.getWorld().spawn(location.add(0,0,0), ArmorStand.class);
 
         armorStand.setInvisible(true);
-        armorStand.setGravity(false);
-        armorStand.setInvulnerable(true);
-        armorStand.setMarker(true);
 
         armorStand.setCustomNameVisible(true);
         armorStand.setCustomName(name);
+
+        armorStand.teleport(armorStand.getLocation().subtract(0,0,0));
+
+        armorStand.setGravity(false);
+        armorStand.setInvulnerable(true);
+        armorStand.setMarker(true);
 
         hologramManager.hologramHashMap.put(count, this);
     }

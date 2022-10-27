@@ -1,4 +1,4 @@
-package com.doontcare.me.leaderboard;
+package com.doontcare.me.listeners.leaderboard;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
