@@ -33,6 +33,9 @@ public final class Emerald extends JavaPlugin {
      *  - Levelling system
      *      - Uses exp bar to display
      *      - Will also be displayed on leaderboard
+     *  -Custom Recipes
+     *      - Of most weapons/items
+     *  - Accessories
      *  - Leaderboard
      *      - Rank
      *          - Shows levelling up multiplier
